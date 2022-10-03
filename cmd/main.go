@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	fmt.Println("Hello, world!")
+	router := gin.Default()
+
+	bootstrap := Bootstrap{}
+	bootstrap.initializedDatabase() //
+	bootstrap.initializeRouter(router)
+
+	router.Run(":8080")
 }

@@ -1,0 +1,11 @@
+
+###
+POST localhost:8080/user
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "test",
+  "email": "wjdrlrkdl3@gmail.com",
+  "address": "인천광역시 중구 사동 우현로 18-1"
+}
