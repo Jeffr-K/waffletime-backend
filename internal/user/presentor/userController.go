@@ -3,18 +3,22 @@ package presentor
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/jeffr-k/waffletime/internal/user/application/usecase"
 	"github.com/jeffr-k/waffletime/internal/user/presentor/dto"
-	"github.com/jeffr-k/waffletime/internal/user/usecase"
 	"net/http"
+	"strconv"
 )
 
 type Controller struct {
 	userCreateUseCase usecase.UserCreateUseCase
+	userDeleteUseCase usecase.UserDeleteUseCase
+	userUpdateUseCase usecase.UserUpdateUseCase
+	userSearchUseCase usecase.UserSearchUseCase
 }
 
 func (c Controller) Register(context *gin.Context) {
-	var dto dto.CreateUserDto
-	fmt.Println(dto)
+	dto := dto.CreateUserDto{}
+
 	if err := context.ShouldBindJSON(&dto); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -22,28 +26,52 @@ func (c Controller) Register(context *gin.Context) {
 		return
 	}
 
-	usecase, err := c.userCreateUseCase.UserRegisterAsMember(&dto)
-	if err != nil {
-		fmt.Println(err)
+	result := c.userCreateUseCase.UserRegisterAsMember(&dto)
+	if result != nil {
+		fmt.Println(result)
 	}
 
-	context.JSON(http.StatusOK, gin.H{"result": usecase})
+	context.JSON(http.StatusOK, gin.H{"result": "successfully saved."})
 }
 
 func (c Controller) Dropdown(context *gin.Context) {
-	context.JSON(http.StatusOK, gin.H{
-		"message": "successfully login.",
-	})
+	userId := context.DefaultQuery("id", "")
+	cast, _ := strconv.Atoi(userId)
+	result := c.userDeleteUseCase.UserDropdownMembership(cast)
+	if result != nil {
+		fmt.Println(result)
+	}
+
+	context.JSON(http.StatusOK, gin.H{"message": "successfully deleted."})
 }
 
 func (c Controller) updateUserInfo(context *gin.Context) {
-	context.JSON(http.StatusOK, gin.H{
-		"message": "successfully login.",
-	})
+	dto := dto.UpdateUserDto{}
+
+	if err := context.ShouldBindJSON(&dto); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	result := c.userUpdateUseCase.UpdateUserInfo(&dto)
+	if result != nil {
+		fmt.Println(result)
+		context.JSON(http.StatusOK, gin.H{"result": "successfully saved."})
+	}
+
+	context.JSON(http.StatusOK, gin.H{"result": result})
 }
 
 func (c Controller) getUserInfo(context *gin.Context) {
-	context.JSON(http.StatusOK, gin.H{
-		"message": "hi.",
-	})
+	userId := context.DefaultQuery("id", "")
+	cast, _ := strconv.Atoi(userId)
+
+	result, err := c.userSearchUseCase.GetUserById(cast)
+	if err != nil {
+		context.JSON(http.StatusOK, gin.H{"message": "Notfound."})
+	}
+
+	context.JSON(http.StatusOK, gin.H{"result": result})
 }

@@ -1,6 +1,6 @@
 
 ###
-POST localhost:8080/user
+POST localhost:6060/user
 Content-Type: application/json
 
 {
