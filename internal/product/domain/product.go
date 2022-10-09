@@ -1,7 +1,8 @@
 package domain
 
 import (
-	"github.com/jeffr-k/waffletime/internal/user/domain"
+	ReviewModule "github.com/jeffr-k/waffletime/internal/review/domain"
+	UserModule "github.com/jeffr-k/waffletime/internal/user/domain"
 	"gorm.io/gorm"
 	"time"
 )
@@ -13,9 +14,9 @@ type Product struct {
 	Star          float32   // 상품 별점
 	CreatedAt     time.Time // 상품 게시 날짜
 	UpdatedAt     time.Time // 상품 업데이트 날짜
-	UserId        domain.User
 	ProductDetail ProductDetail
-	ReviewId      Revi
+	UserId        UserModule.User
+	ReviewId      ReviewModule.Review
 }
 
 type ProductDetail struct {
