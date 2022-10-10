@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"fmt"
-	"github.com/jeffr-k/waffletime/internal/user/repository"
-	"github.com/jeffr-k/waffletime/pkg/database"
+	"waffletime/internal/user/repository"
+	"waffletime/pkg/database"
 )
 
 type IUserDeleteUsecase interface {

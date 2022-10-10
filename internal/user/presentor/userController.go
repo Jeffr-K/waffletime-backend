@@ -3,10 +3,10 @@ package presentor
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/jeffr-k/waffletime/internal/user/application/usecase"
-	"github.com/jeffr-k/waffletime/internal/user/presentor/dto"
 	"net/http"
 	"strconv"
+	"waffletime/internal/user/application/usecase"
+	"waffletime/internal/user/presentor/dto"
 )
 
 type Controller struct {

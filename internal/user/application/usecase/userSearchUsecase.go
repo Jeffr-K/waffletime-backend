@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"github.com/jeffr-k/waffletime/internal/user/domain"
-	"github.com/jeffr-k/waffletime/internal/user/repository"
-	"github.com/jeffr-k/waffletime/pkg/database"
+	"waffletime/internal/user/domain"
+	"waffletime/internal/user/repository"
+	"waffletime/pkg/database"
 )
 
 type IUserSearchUseCase interface {

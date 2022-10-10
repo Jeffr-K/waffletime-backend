@@ -1,10 +1,10 @@
 package domain
 
 import (
-	ReviewModule "github.com/jeffr-k/waffletime/internal/review/domain"
-	UserModule "github.com/jeffr-k/waffletime/internal/user/domain"
 	"gorm.io/gorm"
 	"time"
+	ReviewModule "waffletime/internal/review/domain"
+	UserModule "waffletime/internal/user/domain"
 )
 
 type Product struct {

@@ -2,8 +2,8 @@ package presentor
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/jeffr-k/waffletime/internal/product/application/usecase"
 	"net/http"
+	"waffletime/internal/product/application/usecase"
 )
 
 type IProductController interface {

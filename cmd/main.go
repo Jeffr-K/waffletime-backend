@@ -8,16 +8,15 @@ import (
 func main() {
 	router := gin.Default()
 
-	bootstrap := Bootstrap{}
-	bootstrap.initializedDatabase()
-	bootstrap.initializeKafka()
+	bootstrap := Bootstrap{} //
+	bootstrap.initializeExternalPackage()
 	bootstrap.initializeRouter(router)
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "Hello, world!",
 		})
-	}) //
+	})
 
 	router.Run(":6060")
 }

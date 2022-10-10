@@ -2,10 +2,10 @@ package database
 
 import (
 	"fmt"
-	"github.com/jeffr-k/waffletime/internal/user/domain"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"time"
+	"waffletime/internal/user/domain"
 )
 
 var Db *gorm.DB

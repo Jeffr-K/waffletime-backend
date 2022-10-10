@@ -1,6 +1,6 @@
 package usecase
 
-import "github.com/jeffr-k/waffletime/internal/product/domain"
+import "waffletime/internal/product/domain"
 
 type IProductSearchUseCase interface {
 	GetOneProduct() (domain.Product, error)

@@ -2,8 +2,8 @@ package repository
 
 import (
 	"errors"
-	"github.com/jeffr-k/waffletime/internal/user/domain"
 	"gorm.io/gorm"
+	"waffletime/internal/user/domain"
 )
 
 type UserRepository interface {

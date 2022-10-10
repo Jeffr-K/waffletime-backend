@@ -1,10 +1,10 @@
 package usecase
 
 import (
-	"github.com/jeffr-k/waffletime/internal/user/domain"
-	"github.com/jeffr-k/waffletime/internal/user/presentor/dto"
-	"github.com/jeffr-k/waffletime/internal/user/repository"
-	"github.com/jeffr-k/waffletime/pkg/database"
+	"waffletime/internal/user/domain"
+	"waffletime/internal/user/presentor/dto"
+	"waffletime/internal/user/repository"
+	"waffletime/pkg/database"
 )
 
 type IUserUpdateUseCase interface {

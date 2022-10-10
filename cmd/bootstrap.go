@@ -1,39 +1,30 @@
 package main
 
+//
 import (
-	"context"
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/jeffr-k/waffletime/internal/auth"
-	"github.com/jeffr-k/waffletime/internal/user/presentor"
-	"github.com/jeffr-k/waffletime/pkg/database"
-	"github.com/segmentio/kafka-go"
+	"waffletime/internal/auth"
+	product "waffletime/internal/product/presentor"
+	user "waffletime/internal/user/presentor"
+	"waffletime/pkg/database"
+	"waffletime/pkg/queue"
 )
 
 type Bootstrap struct{}
 
 func (b Bootstrap) initializeRouter(router *gin.Engine) {
-	user := presentor.Router{}
+	user := user.Router{}
 	auth := auth.Router{}
+	product := product.Router{}
 
 	user.Routes(router)
 	auth.Routes(router)
+	product.Routes(router)
 }
 
-func (b Bootstrap) initializedDatabase() {
+func (b Bootstrap) initializeExternalPackage() {
 	database.InitializedDatabase()
-}
-
-func (b Bootstrap) initializeKafka() {
-	topic := "waffletime"
-	partition := 0
-
-	_, err := kafka.DialLeader(context.Background(), "tcp", "localhost:9092", topic, partition)
-	if err != nil {
-		panic("Kafka connection is failed.")
-	}
-	fmt.Println("kafka connection is success..")
-
+	queue.InitializeKafka()
 }
 
 func (b Bootstrap) initializeMongoDB() {}
