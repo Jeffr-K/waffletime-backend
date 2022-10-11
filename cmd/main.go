@@ -3,14 +3,15 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"waffletime/cmd/server"
 )
 
 func main() {
 	router := gin.Default()
 
-	bootstrap := Bootstrap{} //
-	bootstrap.initializeExternalPackage()
-	bootstrap.initializeRouter(router)
+	bootstrap := server.Bootstrap{} //
+	bootstrap.InitializeExternalPackage()
+	bootstrap.InitializeRouter(router)
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
