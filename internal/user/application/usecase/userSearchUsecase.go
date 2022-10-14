@@ -20,3 +20,12 @@ func (us UserSearchUseCase) GetUserById(id int) (domain.User, error) {
 	}
 	return result, nil
 }
+
+func (us UserSearchUseCase) GetUserByEmail(email string) (domain.User, error) {
+	userRepository := repository.NewRepository(database.Db)
+	result, err := userRepository.GetByEmail(email)
+	if err != nil {
+		return domain.User{}, err
+	}
+	return result, nil
+}

@@ -1,6 +1,5 @@
-package main
+package server
 
-//
 import (
 	"github.com/gin-gonic/gin"
 	"waffletime/internal/auth"
@@ -12,7 +11,7 @@ import (
 
 type Bootstrap struct{}
 
-func (b Bootstrap) initializeRouter(router *gin.Engine) {
+func (b Bootstrap) InitializeRouter(router *gin.Engine) {
 	user := user.Router{}
 	auth := auth.Router{}
 	product := product.Router{}
@@ -22,9 +21,11 @@ func (b Bootstrap) initializeRouter(router *gin.Engine) {
 	product.Routes(router)
 }
 
-func (b Bootstrap) initializeExternalPackage() {
+func (b Bootstrap) InitializeExternalPackage() {
 	database.InitializedDatabase()
-	queue.InitializeKafka()
+	queue.NewKafka()
 }
 
 func (b Bootstrap) initializeMongoDB() {}
+
+//

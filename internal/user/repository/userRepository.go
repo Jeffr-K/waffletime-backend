@@ -11,6 +11,7 @@ type UserRepository interface {
 	UpdateTo(user *domain.User) error
 	DeleteTo(userId int) error
 	GetTo(id int) (domain.User, error)
+	GetByEmail(email string) (domain.User, error)
 }
 
 type repository struct {
@@ -56,6 +57,15 @@ func (r *repository) DeleteTo(userId int) error {
 func (r *repository) GetTo(id int) (domain.User, error) {
 	var result domain.User
 	data := r.database.Where("id = ?", uint(id)).First(&result)
+	if data.RowsAffected == 0 {
+		return domain.User{}, errors.New("user data notFound")
+	}
+	return result, nil
+}
+
+func (r *repository) GetByEmail(email string) (domain.User, error) {
+	var result domain.User
+	data := r.database.Where("email = ?", email).First(&result)
 	if data.RowsAffected == 0 {
 		return domain.User{}, errors.New("user data notFound")
 	}

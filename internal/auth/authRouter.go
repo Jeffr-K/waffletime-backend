@@ -1,9 +1,12 @@
 package auth
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"waffletime/internal/auth/presentor"
+)
 
 type Router struct {
-	authController Controller
+	authController presentor.Controller
 }
 
 func (ar Router) Routes(route *gin.Engine) {

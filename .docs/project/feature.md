@@ -1,9 +1,9 @@
 - [][Domain: User]()
-  - [][API: Register]
-  - [][API: Dropdown]
-  - [][API: Search a user]
+  - [x][API: Register]
+  - [x][API: Dropdown]
+  - [x][API: Search a user]
   - [][API: Search user list with filter]
-  - [][API: Change User Information]
+  - [x][API: Change User Information]
   - [][API: Change User Password]
   - [][API: Local Login]
   - [][API: Local Logout]
@@ -15,3 +15,12 @@
   - [][API: SSO: Github]
   - [][API: Upload Profile User photo On S3 Bucket]
   - [][API: Delete Profile User photo On S3 Bucket]
+
+- [][Product]()
+  - []
+  - []
+  - []
+  - []
+  - []
+  - []
+  - []

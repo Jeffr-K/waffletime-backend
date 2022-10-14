@@ -5,7 +5,13 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"time"
-	"waffletime/internal/user/domain"
+	Cart "waffletime/internal/cart/domain"
+	Coupon "waffletime/internal/coupon/domain"
+	CustomerService "waffletime/internal/customer/domain"
+	Point "waffletime/internal/point/domain"
+	Product "waffletime/internal/product/domain"
+	Review "waffletime/internal/review/domain"
+	User "waffletime/internal/user/domain"
 )
 
 var Db *gorm.DB
@@ -18,7 +24,19 @@ func InitializedDatabase() {
 		panic("failed to connect database.")
 	}
 
-	Db.AutoMigrate(&domain.User{})
+	Db.AutoMigrate(&User.User{})
+	Db.AutoMigrate(&Product.Product{})
+	Db.AutoMigrate(&Product.ProductDetail{})
+	Db.AutoMigrate(&Product.Category{})
+	Db.AutoMigrate(&Product.Option{})
+	Db.AutoMigrate(&Product.Origin{})
+	Db.AutoMigrate(&Product.Promotion{})
+	Db.AutoMigrate(&Cart.Cart{})
+	Db.AutoMigrate(&Review.Review{})
+	Db.AutoMigrate(&Coupon.Coupon{})
+	Db.AutoMigrate(&Point.Point{})
+	Db.AutoMigrate(&Point.Policy{})
+	Db.AutoMigrate(&CustomerService.Inquiry{})
 
 	mysqlDB, err := Db.DB()
 	mysqlDB.SetMaxIdleConns(10)

@@ -14,17 +14,18 @@ type IKafkaQueue interface {
 
 type kafkaQueue struct{}
 
-func (k kafkaQueue) NewKafka() IKafkaQueue {
+func NewKafka() IKafkaQueue {
 	return &kafkaQueue{}
 }
 
-func InitializeKafka() {
+func (k kafkaQueue) initializeKafka() {
 	topic := "waffletime"
 	partition := 0
 
 	_, err := kafka.DialLeader(context.Background(), "tcp", "localhost:9092", topic, partition)
 	if err != nil {
-		panic("Kafka connection is failed.")
+		log.Fatalln("Kafka connection Error: ", err)
+		panic(err)
 	}
 	fmt.Println("kafka connection is success..")
 }
