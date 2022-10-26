@@ -9,9 +9,11 @@ import (
 type IToken interface {
 	GenerateJwtAccessToken(userId uint) (string, error)
 	GenerateJwtRefreshToken(userId uint) (string, error)
+	IsValidToken(requestToken string) bool
 }
 
-// https://developer.vonage.com/blog/2020/03/13/using-jwt-for-authentication-in-a-golang-application-dr
+// Token https://developer.vonage.com/blog/2020/03/13/using-jwt-for-authentication-in-a-golang-application-dr
+// Auth0 [auth0](https://auth0.com/docs/secure/tokens/id-tokens/validate-id-tokens)
 type Token struct{}
 
 type Claims struct {
@@ -47,6 +49,17 @@ func (t Token) GenerateJwtRefreshToken(userId uint) (string, error) {
 		return "", err
 	}
 	return token, nil
+}
+
+func (t Token) IsValidToken(requestToken string) bool {
+	_, err := jwt.Parse(requestToken, func(t *jwt.Token) (interface{}, error) {
+		return []byte(os.Getenv("TOKEN_SECRET_KEY")), nil
+	})
+	if err != nil {
+		return false
+	}
+
+	return true
 }
 
 func (t Token) VerifyJwtTokenValidation() {}

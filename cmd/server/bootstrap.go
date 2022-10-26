@@ -1,6 +1,7 @@
 package server
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"waffletime/internal/auth/presentor"
 	product "waffletime/internal/product/presentor"
@@ -29,3 +30,20 @@ func (b Bootstrap) InitializeExternalPackage() {
 }
 
 func (b Bootstrap) initializeMongoDB() {}
+
+func (b Bootstrap) InitializeCorsConfig() cors.Config {
+	return cors.Config{
+		AllowAllOrigins:        true,
+		AllowOrigins:           []string{"http://localhost:6060", "http://127.0.0.1:6060"},
+		AllowOriginFunc:        nil,
+		AllowMethods:           []string{"POST", "DELETE", "PUT", "PATCH", "GET"},
+		AllowHeaders:           []string{"Origin", "Accept", "Content-Type", "X-Requested-With", "Multipart-FormData"},
+		AllowCredentials:       false,
+		ExposeHeaders:          nil,
+		MaxAge:                 0,
+		AllowWildcard:          false,
+		AllowBrowserExtensions: false,
+		AllowWebSockets:        false,
+		AllowFiles:             false,
+	}
+}

@@ -9,7 +9,16 @@ import (
 
 var Client *redis.Client
 
+type IRedis interface {
+	SetValue()
+	GetValue()
+}
+
 type Redis struct{}
+
+func (r Redis) NewRedisRepository() IRedis {
+	return &Redis{}
+}
 
 func InitializeRedis() {
 	database := redis.NewClient(&redis.Options{
@@ -25,3 +34,7 @@ func InitializeRedis() {
 
 	fmt.Println("\n[Redis Connection Success]\n", pong)
 }
+
+func (r Redis) SetValue() {}
+
+func (r Redis) GetValue() {}
