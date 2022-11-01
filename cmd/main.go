@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"waffletime/cmd/server"
@@ -11,10 +10,8 @@ func main() {
 	gin.SetMode(gin.DebugMode)
 
 	router := gin.Default()
-	router.Use(gin.Logger())
-	router.Use(gin.Recovery())
-	bootstrap := server.Bootstrap{}
-	router.Use(cors.New(bootstrap.InitializeCorsConfig()))
+	bootstrap := server.Bootstrap{} //
+	//router.Use(cors.New(bootstrap.InitializeCorsConfig()))
 	bootstrap.InitializeExternalPackage()
 	bootstrap.InitializeRouter(router)
 

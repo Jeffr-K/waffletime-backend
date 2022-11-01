@@ -3,7 +3,7 @@ package presentor
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"waffletime/internal/product/application/usecase"
+	"waffletime/internal/product/application/usecase/product"
 )
 
 type IProductController interface {
@@ -15,18 +15,18 @@ type IProductController interface {
 }
 
 type productController struct {
-	productPublishUseCase usecase.IProductPublishUseCase
-	productDeleteUseCase  usecase.IProductDeleteUseCase
-	productSearchUseCase  usecase.IProductSearchUseCase
-	productUpdateUseCase  usecase.IProductUpdateUseCase
+	productPublishUseCase product.IProductPublishUseCase
+	productDeleteUseCase  product.IProductDeleteUseCase
+	productSearchUseCase  product.IProductSearchUseCase
+	productUpdateUseCase  product.IProductUpdateUseCase
 }
 
 func NewProductController() IProductController {
 	return &productController{
-		productPublishUseCase: usecase.NewProductPublishUseCase(),
-		productDeleteUseCase:  usecase.NewProductDeleteUseCase(),
-		productSearchUseCase:  usecase.NewProductSearchUseCase(),
-		productUpdateUseCase:  usecase.NewProductUpdateUseCase(),
+		productPublishUseCase: product.NewProductPublishUseCase(),
+		productDeleteUseCase:  product.NewProductDeleteUseCase(),
+		productSearchUseCase:  product.NewProductSearchUseCase(),
+		productUpdateUseCase:  product.NewProductUpdateUseCase(),
 	}
 }
 

@@ -2,9 +2,9 @@ package queue
 
 import (
 	"context"
-	"fmt"
 	"github.com/segmentio/kafka-go"
 	"log"
+	"time"
 )
 
 type IKafkaQueue interface {
@@ -22,12 +22,25 @@ func InitializeKafka() {
 	topic := "waffletime"
 	partition := 0
 
-	_, err := kafka.DialLeader(context.Background(), "tcp", "localhost:9092", topic, partition)
+	conn, err := kafka.DialLeader(context.Background(), "tcp", "localhost:9092", topic, partition)
 	if err != nil {
 		log.Fatalln("Kafka connection Error: ", err)
 		panic(err)
 	}
-	fmt.Println("kafka connection is success..")
+
+	conn.SetWriteDeadline(time.Now().Add(10 * time.Second))
+	_, err = conn.WriteMessages(
+		kafka.Message{Value: []byte("one!")},
+		kafka.Message{Value: []byte("two!")},
+		kafka.Message{Value: []byte("three!")},
+	)
+	if err != nil {
+		log.Fatalln("failed to write messages:", err)
+	}
+
+	if err := conn.Close(); err != nil {
+		log.Fatalln("failed to close writer:", err)
+	}
 }
 
 //func (k KafkaQueue) Produce() {
